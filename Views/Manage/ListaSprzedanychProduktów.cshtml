@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Sklep.Models.Zamowienie>
+@{
+    ViewBag.Title = "ListaZamowien";
+    Layout = "~/Views/Shared/_ManageLayout.cshtml";
+}
+
+<div>
+    <hr />
+    <h2 class="manageHeader">Twoje sprzedane produkty:</h2>
+
+    <div>
+        @if (Model.Any())
+        {
+            <table id="zamowienia-table">
+
+                @foreach (var zamowienie in Model)
+                {
+                    <tr @if (zamowienie.Stan == Sklep.Models.Stan.Nowe) { <text> class="noweZamowienie" </text> }>
+                        <td>
+                            <strong>Nr zamówienia: </strong>@zamowienie.ZamowienieId
+                        </td>
+                        <td>
+                            <strong>Data: </strong>
+                            @zamowienie.Data.ToString("dd-MM-yyyy")
+                        </td>
+                        <td>
+                            <strong>Stan: </strong><br />
+                            @Html.DisplayFor(o => zamowienie.Stan)
+                        </td>
+                        <td>
+                            <strong>Dane wysyłkowe:</strong><br />
+                            @zamowienie.Imie @zamowienie.Nazwisko<br />
+                            @zamowienie.Ulica<br />
+                            @zamowienie.KodPocztowy @zamowienie.Miasto<br />
+                        </td>
+                        <td>
+                            <strong>Łączny koszt:</strong> @zamowienie.WartoscZamowienia zł
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6">
+                            <section>
+                                <ul class="TrzyKolumnyList duzaListaKursy-bottom">
+
+                                    @foreach (var pozycjaZamowienia in zamowienie.PozycjeZamowienia)
+                                    {
+                                        <li>
+                                            <article>
+                                                <a class="kursSzczegolyLink" href="@Url.Action("Szczegoly", "Produkty", new { id = pozycjaZamowienia.ProduktId })">
+                                                    <img class="kurs" src="@Url.Content("~/Content/produkty/" + pozycjaZamowienia.Produkt.NPO)" />
+                                                    <h1>
+                                                        @pozycjaZamowienia.Produkt.Nazwa<br />
+                                                        <strong>sztuk: @pozycjaZamowienia.Ilosc, łącznie: @(pozycjaZamowienia.Ilosc * @pozycjaZamowienia.CenaZakupu)  zł</strong>
+                                                    </h1>
+                                                </a>
+                                            </article>
+                                        </li>
+                                    }
+                                </ul>
+                            </section>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6"></td>
+                    </tr>
+                    <!-- nastepne zamowienie -->
+                }
+            </table>
+        }
+        else
+        {
+            <div style="text-align: center; margin-top: 50px; margin-bottom: 50px;">
+                Brak sprzedanych produktów.
+            </div>
+        }
+    </div>
+</div>
+

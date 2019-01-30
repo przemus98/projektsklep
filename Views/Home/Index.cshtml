@@ -1,0 +1,20 @@
+﻿@model Sklep.View_Model.GlownaVM
+@using Sklep.Infrastruktura
+@{ 
+    ViewBag.Title = "Sklep tego typu bęc";
+}
+    <nav class="kategorieHorizontal">
+        <ul>
+            @foreach (var kategoria in Model.Kategorie)
+            {
+             <li>
+                 <a href="@Url.Action("Lista", "Produkty", new {nazwaKategorii = kategoria.NazwaKategorii.ToLower()})">
+                    <img src="@Url.SciezkaIkonyKateg(kategoria.NPI)">
+                     @kategoria.NazwaKategorii
+                 </a>
+             </li>
+            }
+        </ul>
+    </nav>
+   
+

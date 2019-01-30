@@ -1,0 +1,72 @@
+﻿@model Sklep.View_Model.DodajProduktVM
+@{
+    ViewBag.Title = "DodajProdukt";
+    Layout = "~/Views/Shared/_ManageLayout.cshtml";
+}
+
+<hr />
+<div>
+    @if (Model.Potwierdzenie.HasValue && Model.Potwierdzenie.Value)
+    {
+        <div style="text-align: center; margin: 50px;">
+            Dodano produkt.
+        </div>
+    }
+
+    @using (@Html.BeginForm("DodajProdukt", "Manage", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="error-summary-centered">
+            @Html.ValidationSummary()
+        </div>
+        @Html.HiddenFor(o => o.Produkt.ProduktId)
+        @Html.HiddenFor(o => o.Produkt.NPO)
+        @Html.HiddenFor(o => o.Produkt.Sprzedawca)
+
+        <div style="text-align: center;">
+            <table id="albumedit-address-table">
+                <tr>
+                    <td>@Html.LabelFor(o => o.Produkt.Nazwa, "Produkt:")</td>
+                    <td>@Html.TextBoxFor(o => o.Produkt.Nazwa)</td>
+                    <td>@Html.ValidationMessageFor(o => o.Produkt.Nazwa)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(o => o.Produkt.Opis, "Opis:")</td>
+                    <td>@Html.TextBoxFor(o => o.Produkt.Opis)</td>
+                    <td>@Html.ValidationMessageFor(o => o.Produkt.Opis)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(o => o.Kategorie, "Kategoria:")</td>
+                    <td>@Html.DropDownListFor(m => m.Produkt.KategoriaId, new SelectList(Model.Kategorie, "KategoriaId", "NazwaKategorii", Model.Kategorie.First().KategoriaId))</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(o => o.Produkt.Cena, "Cena:")</td>
+                    <td>@Html.TextBoxFor(o => o.Produkt.Cena)</td>
+                    <td>@Html.ValidationMessageFor(o => o.Produkt.Cena)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(o => o.Produkt.IloscProd, "Ilość:")</td>
+                    <td>@Html.TextBoxFor(o => o.Produkt.IloscProd)</td>
+                    <td>@Html.ValidationMessageFor(o => o.Produkt.IloscProd)</td>
+                </tr>
+                    <tr>
+                        <td colspan="3">
+                            <div class="upload">
+                                Wgraj Zdjęcie
+                                <input type="file" name="file" />
+                            </div>
+                        </td>
+                    </tr>
+                <tr>
+                    <td style="text-align: right;">
+                        <input type="submit" value="Zapisz" class="submitLink" style="height: 40px; margin-right: 0px; margin-top: 30px; font-weight: bold;" />
+                    </td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+    }
+</div>
+

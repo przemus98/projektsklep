@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    @System.Web.Optimization.Styles.Render("~/Content/themes/base/css")
+</head>
+<body>
+    <header>
+        <div style="overflow: hidden;">
+            <a id="koszykHeaderLink" href="link">
+                Koszyk (<span id="koszyk-naglowek-ilosc-elementow">@Html.Action("PobierzIloscElemKoszyka", "Koszyk")</span>)
+                <span></span>
+            </a>
+
+            @Html.Partial("_LoginPartial")
+
+            <a id="indexHeaderLogo" href="link">
+                <img src="~/Content/Images/logo.png" class="center" />
+            </a>
+        </div>
+    </header>
+    <div>
+        @RenderBody()
+    </div>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width" />
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/themes/base/jquery-ui.css")" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <div style="overflow: hidden; margin-bottom: 30px;">
+            <a class="manageLink" href="@Url.Action("Index", "Home")">
+                Start
+            </a>
+            <a class="manageLink" href="@Url.Action("Index", "Manage")">
+                Twoje dane
+            </a>
+            <a class="manageLink" href="@Url.Action("ListaZamowien", "Manage")" style="width: 100px">
+                Zamówienia
+            </a>
+            <a class="manageLink" href="@Url.Action("ListaSprzedanychProduktów", "Manage")" style="width: 100px">
+                Sprzedane
+            </a>
+                <a class="manageLink" href="@Url.Action("DodajProdukt", "Manage")">
+                    Dodaj
+                </a>
+            
+
+            <a id="koszykHeaderLink" href="@Url.Action("Index", "Koszyk")">
+                KOSZYK (<span id="koszyk-naglowek-ilosc-elementow">@Html.Action("PobierzIloscElemKoszyka", "Koszyk")</span>)
+                <span id="cart-header-logo"></span>
+            </a>
+            @Html.Partial("_LoginPartial")
+        </div>
+    </header>
+
+    <div>
+        @RenderBody()
+    </div>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,36 @@
+﻿@model Sklep.Models.Produkt
+@using Sklep.Infrastruktura
+@{
+    ViewBag.Title = "Szczegoly";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="ListaKategoriZawartosc">
+    @Url.Action("MenuKategorii")
+    <div id="KategorieListPrawaSekcja">
+        <section id="SekcjaKurs">
+            <div id="KursLewa">
+                <img src="@Url.SciezkaObrazka(Model.NPO)" />
+            </div>
+            <div id="KursPrawa">
+                <div id="KursNazwa">
+                    <h1>
+                        @Model.Nazwa
+                    </h1>
+
+                </div>
+                <div id="KursCena">
+                    <div>
+                        @string.Format("{0:0.##}", Model.Cena)<span>PLN</span>
+                    </div>
+                    <a href="@Url.Action("DodajDoKoszyka", "Koszyk", new { id = Model.ProduktId })"></a>
+                </div>
+                <div id="KursOpis">
+                    @Model.Opis
+                </div>
+
+            </div>
+        </section>
+    </div>
+</div>
+
